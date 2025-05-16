@@ -3,4 +3,4 @@
 
 # Fichiers objet et compilation
 ./code/bin/*
-./code/build/*
+./code/build/*.o
