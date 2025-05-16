@@ -1,2 +1,6 @@
 # Fichiers VSCode
 .code/
+
+# Fichiers objet et compilation
+./code/bin/*
+./code/build/*
