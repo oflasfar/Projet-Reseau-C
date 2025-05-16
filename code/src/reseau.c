@@ -24,3 +24,9 @@ void afficher_ip(const ip_address * ip)
 	}
 	printf("/%d\n", ip->masque);
 }
+
+void afficher_station(const station * st)
+{
+    afficher_ip(&st->ip);
+    afficher_mac(&st->mac);
+}

@@ -9,6 +9,7 @@ int main(void)
 {
 	mac_address ma;
 	ip_address ip;
+    station st;
 
 	for (size_t i = 0 ; i < 6 ; i++)
 	{
@@ -24,6 +25,11 @@ int main(void)
 	afficher_mac(&ma);
 
 	afficher_ip(&ip);
+
+    printf("-------------------\n");
+
+
+    afficher_station(&st);
 
 	return EXIT_SUCCESS;
 }
