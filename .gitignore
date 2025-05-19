@@ -2,5 +2,5 @@
 .code/
 
 # Fichiers objet et compilation
-code/bin/
-code/build/
+code/bin/*
+code/build/*
