@@ -26,7 +26,7 @@ typedef struct
 	unsigned short port;
 	mac_address_t ma;
 } entree_table_commutation_t;
-
+//Structure table de commutation
 typedef struct
 {
 	entree_table_commutation_t * entrees;
