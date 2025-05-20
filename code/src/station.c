@@ -6,7 +6,7 @@
 void afficher_station(const station_t * st)
 {
 	printf("IP : ");
-	afficher_ip(&st->ip);
+	afficher_ip_t(&st->ip);
 	printf("\nMAC : ");
 	afficher_mac(&st->mac);
 }

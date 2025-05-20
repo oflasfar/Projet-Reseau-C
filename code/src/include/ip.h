@@ -7,4 +7,6 @@ typedef struct
 	unsigned char masque;
 } ip_address_t;
 
-void afficher_ip(const ip_address_t * ip);
+void afficher_ip_t(const ip_address_t * ip);
+
+int init_ip_address_t(ip_address_t * ip, const char * ip_char);
