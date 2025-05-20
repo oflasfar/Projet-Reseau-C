@@ -13,7 +13,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 # Compilateur et options
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pedantic -I$(INC_DIR)
-LDFLAGS = #-fsanitize=address
+LDFLAGS = # -fsanitize=address
 
 # Cible principale
 all: $(TARGET)

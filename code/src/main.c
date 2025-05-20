@@ -63,6 +63,22 @@ int main(void)
 	printf("-- Test deinit_table_commutation_t --\n");
 	deinit_table_commutation_t(&tc);
 	printf("-- Test passé ! --\n");
+
+	printf("-- Test init_switch_t --\n");
+	switch_t sw;
+	
+	init_switch_t(&sw, ma, 0);
+
+	// Ajout d'entrées pour le test
+	for (size_t i = 0 ; i < 10 ; i++)
+	{
+		etc.port = i;
+		ajouter_entree_table_commutation(sw.tc, etc);
+	}
+	
+	afficher_switch(&sw);
+
+	deinit_switch_t(&sw);
 	// Fin tests 
 	return EXIT_SUCCESS;
 }
