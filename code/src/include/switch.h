@@ -1,5 +1,8 @@
 #pragma once
 
+#include "mac.h"
+#include "table_commutation.h"
+
 // Structure pour un switch
 typedef struct
 {

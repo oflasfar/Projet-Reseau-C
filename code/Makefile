@@ -7,7 +7,7 @@ INC_DIR = $(SRC_DIR)/include
 BUILD_DIR = build
 
 # Fichiers sources et objets
-SRCS = $(SRC_DIR)/main.c $(SRC_DIR)/reseau.c
+SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Compilateur et options

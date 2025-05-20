@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mac.h"
+
 // Structure pour une entrée de table de commutation 
 typedef struct
 {
