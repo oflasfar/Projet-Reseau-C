@@ -8,6 +8,7 @@
 #include "include/station.h"
 #include "include/table_commutation.h"
 #include "include/switch.h"
+#include "include/reseau.h"
 
 int main(void)
 {
@@ -83,6 +84,12 @@ int main(void)
 	afficher_switch(&sw);
 
 	deinit_switch_t(&sw);
+
+	reseau_t rs;
+
+	init_reseau_t(&rs);
+
+	deinit_reseau_t(&rs);
 	// Fin tests 
 	return EXIT_SUCCESS;
 }
