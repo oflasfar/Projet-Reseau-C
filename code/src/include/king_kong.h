@@ -62,3 +62,9 @@ void init_table_commutation_t(table_commutation_t * tc);
 void deinit_table_commutation_t(table_commutation_t * tc);
 
 void ajouter_entree_table_commutation(table_commutation_t * tc, entree_table_commutation_t etc);
+
+// Fonctions pour switch_t
+void init_switch_t(switch_t * sw, mac_address_t ma, unsigned short priorite_stp);
+
+void deinit_switch_t(switch_t * sw);
+
