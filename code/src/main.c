@@ -89,6 +89,17 @@ int main(void)
 
 	init_reseau_t(&rs);
 
+	station_t st;
+	st.ip = ip;
+	st.mac = ma;
+
+	for (size_t i = 0 ; i < 50 ; i++)
+	{
+		printf("DEBUG : %u/%u\n", rs.nb_stations, rs.capacite_stations);
+		ajouter_station_t(&rs, st);
+		afficher_station(&rs.stations[i]);
+	}
+
 	deinit_reseau_t(&rs);
 	// Fin tests 
 	return EXIT_SUCCESS;

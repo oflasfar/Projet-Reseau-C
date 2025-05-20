@@ -18,12 +18,15 @@ typedef struct
 {
 	switch_t* switches;
     	unsigned short nb_switches;
+	unsigned short capacite_switches;
 
     	station_t* stations;
     	unsigned short nb_stations;
+	unsigned short capacite_stations;
 
     	lien_t* liens;
-    	unsigned nb_liens;
+    	unsigned short nb_liens;
+	unsigned short capacite_liens;
 } reseau_t;
 
 
@@ -35,6 +38,7 @@ void afficher_reseau_t(const reseau_t * rs);
 
 void ajouter_lien_t(reseau_t * rs, lien_t lien);
 
+void ajouter_station_t(reseau_t * rs, station_t st);
 /*
  * Pas sur pour celui-ci
 void supprimer_lien_t(reseau_t * rs);
