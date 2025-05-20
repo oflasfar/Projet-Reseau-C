@@ -18,10 +18,8 @@ int main(void)
 	mac_address_t ma;
 	init_reseau_t(&rs);
 	
-	// Initialisation addresse mac_address_t
-	for (size_t i = 0 ; i < 6 ; i++)
-		ma.octet[i] = i;
-
+	// Initialisations
+	init_mac_address_t(&ma, "3C:CD:8D:77:AB:46");
 	init_ip_address_t(&ip, "192.168.1.102/24");
 	st.ip = ip;
 	st.mac = ma;
