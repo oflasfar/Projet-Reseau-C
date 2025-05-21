@@ -13,6 +13,8 @@ typedef struct
     	unsigned short poids;
 } lien_t;
 
+// Enum pour le type ici
+
 // Union pour représenter un élément du réseau
 typedef union
 {
@@ -20,7 +22,7 @@ typedef union
 	unsigned short id;
 	station_t st;
 	switch_t sw;
-}
+} equipement;
 
 // Structure pour représenter un réseau
 typedef struct 
