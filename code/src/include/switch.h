@@ -8,6 +8,7 @@ typedef struct
 {
 	mac_address_t ma;
 	unsigned short nb_ports;
+	// TODO ajouter état + rôle des ports aussi + un truc pour stocker/gérer les messages
 	unsigned short priorite_stp;
 	table_commutation_t * tc;
 } switch_t;

@@ -13,6 +13,15 @@ typedef struct
     	unsigned short poids;
 } lien_t;
 
+// Union pour représenter un élément du réseau
+typedef union
+{
+	unsigned short type; // 0 pour une station, 1 pour un switch
+	unsigned short id;
+	station_t st;
+	switch_t sw;
+}
+
 // Structure pour représenter un réseau
 typedef struct 
 {

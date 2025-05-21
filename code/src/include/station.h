@@ -8,3 +8,5 @@ typedef struct
 } station_t;
 
 void afficher_station(const station_t * st);
+
+int init_station_t(station_t * st, const char * ip, const char * mac);
