@@ -23,7 +23,7 @@ int init_station_t(station_t * st, const char * ip, const char * mac)
 	}
 	else
 	{
-		st->ip = (ip_address_t){{0, 0, 0, 0}, 0}
+		st->ip = (ip_address_t){{0, 0, 0, 0}, 0};
 		return EXIT_FAILURE;
 	}
 

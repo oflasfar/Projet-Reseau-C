@@ -13,7 +13,7 @@ int charger_configuration(reseau_t* reseau, const char* chemin) {
     char ligne[128];
     if (!fgets(ligne, sizeof(ligne), f)) return 0;
 
-    unsigned int nb_eq, nb_liens;
+    unsigned short nb_eq, nb_liens;
     sscanf(ligne, "%hu %hu", &nb_eq, &nb_liens);
 
     // Initialiser capacité du réseau
@@ -40,11 +40,17 @@ int charger_configuration(reseau_t* reseau, const char* chemin) {
             init_mac_address_t(&mac, mac_str);
 
             switch_t sw;
+	  
             sw.nb_ports = nb_ports;
             sw.priorite_stp = priorite;
             sw.ma = mac;
-            init_table_commutation_t(&sw.tc);
+	    sw.tc = malloc(sizeof(table_commutation_t));
+	    if (!sw.tc) {
+		perror("malloc");
+		exit(EXIT_FAILURE);
+		}
 
+            init_table_commutation_t(sw.tc);
             reseau->switches[reseau->nb_switches++] = sw;
 
         } else if (type == '1') {
