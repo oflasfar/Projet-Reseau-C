@@ -14,29 +14,32 @@ typedef struct
 } lien_t;
 
 // Enum pour le type ici
+typedef enum
+{
+    STATION,
+    SWITCH
+} type_equipement_t;
 
 // Union pour représenter un élément du réseau
-typedef union
+typedef struct
 {
-	unsigned short type; // 0 pour une station, 1 pour un switch
-	unsigned short id;
-	station_t st;
-	switch_t sw;
-} equipement;
+    type_equipement_t type;
+    union
+    {
+        station_t st;
+        switch_t sw;
+    } contenu;
+} equipement_t;
 
 // Structure pour représenter un réseau
 typedef struct 
 {
-	switch_t* switches;
-    	unsigned short nb_switches;
-	unsigned short capacite_switches;
+	equipement_t * equipements;
+    unsigned short nb_equipements;
+    unsigned short capacite_equipements;
 
-    	station_t* stations;
-    	unsigned short nb_stations;
-	unsigned short capacite_stations;
-
-    	lien_t* liens;
-    	unsigned short nb_liens;
+    lien_t* liens;
+    unsigned short nb_liens;
 	unsigned short capacite_liens;
 } reseau_t;
 
