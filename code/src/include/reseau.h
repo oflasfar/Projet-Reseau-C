@@ -62,3 +62,5 @@ void supprimer_lien_t(reseau_t * rs);
 void afficher_lien_t(const lien_t * ln);
 
 void afficher_equipement_t(const equipement_t * eq);
+
+void ajouter_equipement_t(reseau_t * rs, char * eq_desc);

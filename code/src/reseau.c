@@ -56,7 +56,7 @@ void ajouter_station_t(reseau_t * rs, station_t st)
 }
 */
 
-void afficher_reseau(const reseau_t * rs)
+void afficher_reseau_t(const reseau_t * rs)
 {
     // Afficher le contenu d'un réseau (équipements, liens, etc)
     printf("=== Réseau ===\n");
@@ -87,6 +87,7 @@ void afficher_equipement_t(const equipement_t * eq)
             afficher_ip_t(&eq->contenu.st.ip);
             printf("Adresse MAC : ");
             afficher_mac(&eq->contenu.st.mac);
+	    printf("\n");
             break;
         case SWITCH:
             printf("Type : Switch\nAdresse MAC : ");
@@ -103,6 +104,38 @@ void afficher_equipement_t(const equipement_t * eq)
 void afficher_lien_t(const lien_t * ln)
 {
     printf("ID équipement 1 : %hu\nID équipement 2 : %hu\nPoids : %hu\n", ln->id1, ln->id2, ln->poids);
+}
+
+void ajouter_equipement_t(reseau_t * rs, char * eq_desc)
+{
+	// Parsing de la ligne contenant l'équipement
+
+	unsigned short eq_type;
+
+	// Parsing du type pour le switch-case
+	if (sscanf(eq_desc, "%hu", &eq_type) != 1)
+		perror("sscanf (ajouter_equipement_t)");
+
+	switch (eq_type)
+	{
+		case SWITCH:
+			{
+				equipement_t eq;
+				unsigned short tmp;
+				if (sscanf(eq_desc, "%hu;%hhx:%hhx:%hhx:%hhx:%hhx:%hhx:%hu:%hu", &tmp, &eq.contenu.sw.ma.octet[0], &eq.contenu.sw.ma.octet[1], &eq.contenu.sw.ma.octet[2], &eq.contenu.sw.ma.octet[3], &eq.contenu.sw.ma.octet[4], &eq.contenu.sw.ma.octet[5], &eq.contenu.sw.nb_ports, &eq.contenu.sw.priorite_stp) != 9)
+					perror("sscanf (ajouter_equipement_t)");
+				eq.type = (type_equipement_t)tmp;
+				rs->equipements[0] = eq;
+				// ajouter_station_t(rs, st); // TODO : à ajouter
+				break;
+			}
+		case STATION:
+			break;
+		default:
+			// should never occur
+			break;
+
+	}
 }
 
 /*

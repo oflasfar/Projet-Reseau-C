@@ -3,8 +3,40 @@
 #include <string.h>
 #include "include/config.h"
 
-/*
-void charger_configuration(reseau_t* reseau, const char* chemin) 
+#define TAILLE_BUFFER 256
+
+void charger_configuration(reseau_t * rs, const char * path) 
 {
+	// Charger les données contenues dans le fichier de configuration se situant dans path dans le réseau passé en argument
+	FILE * fichier = fopen(path, "r");
+
+	if (fichier == NULL)
+	{
+		perror("fopen (charger_configuration)");
+		deinit_reseau_t(rs);
+		exit(EXIT_FAILURE);
+	}
+
+	char ligne_buffer[TAILLE_BUFFER];
+
+	if (fgets(ligne_buffer, sizeof(ligne_buffer), fichier) != NULL)
+	{
+		// Parsing du nombre d'équipements et du nombre de liens
+		if (sscanf(ligne_buffer, "%hu %hu", &rs->nb_equipements, &rs->nb_liens) != 2)
+		{
+			fprintf(stderr, "Erreur : fichier de configuration malformé\n");
+			deinit_reseau_t(rs);
+			fclose(fichier);
+			exit(EXIT_FAILURE);
+		}
+
+		for (size_t i = 0 ; i < 1 ; i++)
+		{
+			fgets(ligne_buffer, sizeof(ligne_buffer), fichier);
+			ajouter_equipement_t(rs, ligne_buffer);
+		}
+	}
+
+	fclose(fichier);
 }
-*/
+
