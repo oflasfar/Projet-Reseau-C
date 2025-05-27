@@ -10,7 +10,6 @@ void afficher_mac(const mac_address_t * ma)
 		if (i < 5)
 			printf(":");
 	}
-	printf("\n");
 }
 
 int init_mac_address_t(mac_address_t * ma, const char * mac_char)

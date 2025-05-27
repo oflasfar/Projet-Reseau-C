@@ -51,8 +51,13 @@ void ajouter_entree_table_commutation(table_commutation_t *tc, entree_table_comm
 
 void afficher_table_commutation(const table_commutation_t *tc)
 {
-	printf("\n");
-	for (unsigned long i = 0 ; i < tc->nb_entree ; i++)
+    if (tc == NULL || tc->nb_entree == 0)
+    {
+        printf("Table de commmutation vide.\n");
+        return;
+    }
+	
+    for (unsigned long i = 0 ; i < tc->nb_entree ; i++)
 	{
 		afficher_entree_table_commutation(&tc->entrees[i]);
 	}
