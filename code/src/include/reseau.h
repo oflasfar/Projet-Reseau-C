@@ -36,11 +36,13 @@ typedef struct
 typedef struct 
 {
 	equipement_t * equipements;
-    unsigned short nb_equipements;
-    unsigned short capacite_equipements;
+    	unsigned short nb_equipements;
+    	unsigned short index_equipement_actuel;
+	unsigned short capacite_equipements;
 
-    lien_t* liens;
-    unsigned short nb_liens;
+    	lien_t* liens;
+    	unsigned short nb_liens;
+	unsigned short index_lien_actuel;
 	unsigned short capacite_liens;
 } reseau_t;
 
