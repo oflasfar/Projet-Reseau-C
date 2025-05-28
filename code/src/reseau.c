@@ -1,6 +1,7 @@
 #include "include/reseau.h"
 #include "include/mac.h"
 #include "include/station.h"
+#include "include/table_commutation.h"
 #include "include/switch.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -42,6 +43,16 @@ void init_reseau_t(reseau_t * rs)
 void deinit_reseau_t(reseau_t * rs)
 {
     // Mise à zéro et libération de la mémoire allouée
+
+    // Libération de la mémoire allouée dans les équipements (ex : les tables de commutation des switch)
+    for (size_t i = 0 ; i < rs->nb_equipements ; i++)
+    {
+	    if (rs->equipements->type == SWITCH)
+	    {
+		    deinit_table_commutation_t(rs->equipements->contenu.sw.tc);
+	    }
+    }
+    
     rs->capacite_equipements = 0;
     rs->capacite_liens = 0;
     rs->nb_equipements = 0;
@@ -86,14 +97,14 @@ void afficher_equipement_t(const equipement_t * eq)
     switch (eq->type)
     {
         case STATION:
-            printf("Type : Station\nAdresse IP : ");
+            printf("ID : %hu\nType : Station\nAdresse IP : ", eq->id);
             afficher_ip_t(&eq->contenu.st.ip);
             printf("Adresse MAC : ");
             afficher_mac(&eq->contenu.st.mac);
 	    printf("\n");
             break;
         case SWITCH:
-            printf("Type : Switch\nAdresse MAC : ");
+            printf("ID : %hu\nType : Switch\nAdresse MAC : ", eq->id);
             afficher_mac(&eq->contenu.sw.ma);
             printf("\nNombre de ports : %hu\nPriorité STP : %hu\nTable de commutation :\n", eq->contenu.sw.nb_ports, eq->contenu.sw.priorite_stp);
             afficher_table_commutation(eq->contenu.sw.tc);
@@ -111,12 +122,13 @@ void afficher_lien_t(const lien_t * ln)
 
 void ajouter_equipement_t(reseau_t * rs, char * eq_desc)
 {
+	// Ajouter le commentaire de pq j'ai mis ça ici
+	static unsigned short id = 0;
+	
 	// Parsing de la ligne contenant l'équipement
 	unsigned short eq_type_us;
 
 	type_equipement_t eq_type;
-
-	printf("[DEBUG] : %s", eq_desc);
 
 	// Parsing du type pour le switch-case
 	if (sscanf(eq_desc, "%hu", &eq_type_us) != 1)
@@ -129,12 +141,13 @@ void ajouter_equipement_t(reseau_t * rs, char * eq_desc)
 		eq_type = SWITCH;
 
 
+	equipement_t eq;
+	unsigned short tmp;
+
 	switch (eq_type)
 	{
 		case STATION:
 			{
-				equipement_t eq;
-				unsigned short tmp;
 				if (sscanf(eq_desc, 
 							// 1;54:d6:a6:82:c5:23;130.79.80.21 
 							"%hu;%hhx:%hhx:%hhx:%hhx:%hhx:%hhx;%hhu.%hhu.%hhu.%hhu", 
@@ -154,14 +167,36 @@ void ajouter_equipement_t(reseau_t * rs, char * eq_desc)
 					fprintf(stderr, "sscanf (ajouter_equipement_t) : chaîne d'équipement mal formatée\nchaîne fautive : %s \n", eq_desc);
 				}
 				eq.type = eq_type;
+				eq.contenu.st.ip.masque = 24;
+				eq.id = id;
 				rs->equipements[rs->index_equipement_actuel] = eq;
 				rs->index_equipement_actuel++;
-				// ajouter_station_t(rs, st); // TODO : à ajouter
+				id++;
 				break;
 			}
-		// 1;c8:69:72:5e:43:af;130.79.80.27
 		case SWITCH:
-
+			if (sscanf(eq_desc, "%hu;%hhx:%hhx:%hhx:%hhx:%hhx:%hhx;%hu;%hu",
+						&tmp,
+						&eq.contenu.sw.ma.octet[0],
+						&eq.contenu.sw.ma.octet[1],
+						&eq.contenu.sw.ma.octet[2],
+						&eq.contenu.sw.ma.octet[3],
+						&eq.contenu.sw.ma.octet[4],
+						&eq.contenu.sw.ma.octet[5],
+						&eq.contenu.sw.nb_ports,
+						&eq.contenu.sw.priorite_stp
+						) != 9)
+			{
+				fprintf(stderr, "sscanf (ajouter_equipement_t) : chaîne d'équipement mal formatée\nchaîne fautive : %s\n", eq_desc);
+			}
+			eq.type = eq_type;
+			
+			// Bug causé ici : lecture et/ou écriture de mémoire non allouée
+			eq.id = id;
+			rs->equipements[rs->index_equipement_actuel] = eq;
+			init_table_commutation_t(rs->equipements[rs->index_equipement_actuel].contenu.sw.tc);
+			rs->index_equipement_actuel++;
+			id++;
 			break;
 		default:
 			// should never occur

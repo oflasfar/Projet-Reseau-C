@@ -13,11 +13,10 @@ void init_table_commutation_t(table_commutation_t * tc)
 {
 	tc->capacite = 8; // On garantie une capacité de 8 entrées à l'initialisation
 	tc->nb_entree = 0;
-	tc->entrees = calloc(tc->capacite, sizeof(entree_table_commutation_t));
+	tc->entrees = malloc(tc->capacite * sizeof(entree_table_commutation_t));
 	if (tc->entrees == NULL)
 	{
-		fprintf(stderr, "Erreur calloc() dans init_table_commutation_t !\n");
-		perror("calloc : ");
+		fprintf(stderr, "malloc dans init_table_commutation_t !\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -57,7 +56,7 @@ void afficher_table_commutation(const table_commutation_t *tc)
         return;
     }
 	
-    for (unsigned long i = 0 ; i < tc->nb_entree ; i++)
+    for (unsigned short i = 0 ; i < tc->nb_entree ; i++)
 	{
 		afficher_entree_table_commutation(&tc->entrees[i]);
 	}

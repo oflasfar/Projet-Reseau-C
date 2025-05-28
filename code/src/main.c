@@ -18,9 +18,10 @@ int main(void)
 	init_reseau_t(&rs);
 
 	charger_configuration(&rs, "configurations/lan1.lan");
-
+	
 
 	printf("Configuration chargée !\n");
+	
 
 	afficher_reseau_t(&rs);
 

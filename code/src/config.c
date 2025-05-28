@@ -56,7 +56,6 @@ void charger_configuration(reseau_t * rs, const char * path)
     			else
     			{
         			fprintf(stderr, "Erreur : nombre de liens incorrect dans le fichier\n");
-				printf("[DEBUG] nb_equipements = %hu ; nb_liens = %hu\n", rs->nb_equipements, rs->nb_liens);
 				deinit_reseau_t(rs);
         			fclose(fichier);
         			exit(EXIT_FAILURE);
