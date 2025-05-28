@@ -51,7 +51,7 @@ void deinit_reseau_t(reseau_t * rs);
 
 void afficher_reseau_t(const reseau_t * rs);
 
-void ajouter_lien_t(reseau_t * rs, lien_t lien);
+void ajouter_lien_t(reseau_t * rs, char* lien);
 
 void ajouter_station_t(reseau_t * rs, station_t st);
 /*

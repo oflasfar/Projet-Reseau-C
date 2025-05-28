@@ -16,14 +16,15 @@ int main(void)
 	reseau_t rs;
 	
 	init_reseau_t(&rs);
-	
 
-	charger_configuration(&rs, "configurations/lan_test.lan");
+	charger_configuration(&rs, "configurations/lan1.lan");
+
 
 	printf("Configuration chargée !\n");
 
 	afficher_reseau_t(&rs);
 
 	deinit_reseau_t(&rs);
+
 	return EXIT_SUCCESS;
 }

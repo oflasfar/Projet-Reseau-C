@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #define CAPACITE_INITIALE 8
+#define TAILLE_BUFFER 256
 
 void init_reseau_t(reseau_t * rs)
 {
@@ -138,9 +139,31 @@ void ajouter_equipement_t(reseau_t * rs, char * eq_desc)
 	}
 }
 
-/*
-void ajouter_lien_t(reseau_t * rs, lien_t lien)
-{
 
+void ajouter_lien_t(reseau_t * rs, char * lien)
+{
+	lien_t ln;
+
+	if (sscanf(lien, "%hu;%hu;%hu", &ln.id1, &ln.id2, &ln.poids) != 3)
+	{
+		fprintf(stderr, "scanf (ajouter_lien_t) : erreur de format dans la chaîne à parser\n");
+		fprintf(stderr, "chaîne fautive : '%s'\n", lien);
+		deinit_reseau_t(rs);
+		exit(EXIT_FAILURE);
+	}
+
+	if (rs->nb_liens == rs->capacite_liens)
+	{
+		rs->capacite_liens *= 2;
+		rs->liens = realloc(rs->liens, sizeof(lien_t) * rs->capacite_liens);
+		if (rs->liens == NULL)
+		{
+			perror("realloc (ajouter_lien_t) ");
+			deinit_reseau_t(rs);
+			exit(EXIT_FAILURE);
+		}
+	}
+	rs->liens[rs->nb_liens] = ln;
+	rs->nb_liens++;
 }
-*/
+
