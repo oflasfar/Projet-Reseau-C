@@ -3,29 +3,27 @@
 
 // Headers
 
+#include "include/config.h"
 #include "include/ip.h"
 #include "include/mac.h"
-#include "include/station.h"
-#include "include/table_commutation.h"
-#include "include/switch.h"
 #include "include/reseau.h"
-#include "include/config.h"
+#include "include/station.h"
+#include "include/switch.h"
+#include "include/table_commutation.h"
 
 int main(void)
 {
-	reseau_t rs;
-	
-	init_reseau_t(&rs);
+  reseau_t rs;
 
-	charger_configuration(&rs, "configurations/lan1.lan");
-	
+  init_reseau_t(&rs);
 
-	printf("Configuration chargée !\n");
-	
+  charger_configuration(&rs, "configurations/lan1.lan");
 
-	afficher_reseau_t(&rs);
+  printf("Configuration chargée !\n");
 
-	deinit_reseau_t(&rs);
+  afficher_reseau_t(&rs);
 
-	return EXIT_SUCCESS;
+  deinit_reseau_t(&rs);
+
+  return EXIT_SUCCESS;
 }

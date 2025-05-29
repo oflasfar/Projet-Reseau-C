@@ -1,12 +1,14 @@
 #pragma once
 
+#include "ip.h"
+#include "mac.h"
 // Structure pour une station
 typedef struct
 {
-	ip_address_t ip;
-	mac_address_t mac;
+  ip_address_t ip;
+  mac_address_t mac;
 } station_t;
 
-void afficher_station(const station_t * st);
+void afficher_station(const station_t *st);
 
-int init_station_t(station_t * st, const char * ip, const char * mac);
+int init_station_t(station_t *st, const char *ip, const char *mac);
